@@ -1,13 +1,13 @@
 
-from eth_utils import (
+from wvm_utils import (
     to_tuple,
 )
 
-from eth.typing import (
+from wvm.typing import (
     AccountDiff,
     AccountState,
 )
-from eth.vm.state import BaseState
+from wvm.vm.state import BaseState
 
 
 @to_tuple
