@@ -6,14 +6,14 @@ from typing import (
     Union,
 )
 
-from eth_utils.toolz import (
+from wvm_utils.toolz import (
     curry,
 )
-from eth_typing import (
+from wvm_typing import (
     Hash32,
 )
 
-from eth.constants import (
+from wvm.constants import (
     UINT_255_MAX,
     UINT_256_MAX,
     UINT_256_CEILING,
