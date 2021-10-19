@@ -5,17 +5,17 @@ from typing import (
     Union,
 )
 
-from eth_utils.toolz import (
+from wvm_utils.toolz import (
     merge,
 )
 
-from eth.constants import (
+from wvm.constants import (
     DEFAULT_SPOOF_Y_PARITY,
     DEFAULT_SPOOF_R,
     DEFAULT_SPOOF_S,
 )
 
-from eth.abc import (
+from wvm.abc import (
     SignedTransactionAPI,
     UnsignedTransactionAPI,
 )
