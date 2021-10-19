@@ -5,30 +5,30 @@ from typing import (
     Tuple,
 )
 
-from eth_typing import (
+from wvm_typing import (
     Address,
 )
 
-from eth.abc import BlockHeaderAPI
-from eth.constants import (
+from wvm.abc import BlockHeaderAPI
+from wvm.constants import (
     BLANK_ROOT_HASH,
     GENESIS_BLOCK_NUMBER,
     GENESIS_PARENT_HASH,
-    GAS_LIMIT_EMA_DENOMINATOR,
-    GAS_LIMIT_ADJUSTMENT_FACTOR,
-    GAS_LIMIT_MAXIMUM,
-    GAS_LIMIT_MINIMUM,
-    GAS_LIMIT_USAGE_ADJUSTMENT_NUMERATOR,
-    GAS_LIMIT_USAGE_ADJUSTMENT_DENOMINATOR,
+    LIX_LIMIT_EMA_DENOMINATOR,
+    LIX_LIMIT_ADJUSTMENT_FACTOR,
+    LIX_LIMIT_MAXIMUM,
+    LIX_LIMIT_MINIMUM,
+    LIX_LIMIT_USAGE_ADJUSTMENT_NUMERATOR,
+    LIX_LIMIT_USAGE_ADJUSTMENT_DENOMINATOR,
     ZERO_ADDRESS,
 )
-from eth.typing import (
+from wvm.typing import (
     BlockNumber,
     HeaderParams,
 )
 
 
-def eth_now() -> int:
+def wvm_now() -> int:
     """
     The timestamp is in UTC.
     """
@@ -43,18 +43,18 @@ def new_timestamp_from_parent(parent: BlockHeaderAPI) -> int:
     then consider this a genesis block.
     """
     if parent is None:
-        return eth_now()
+        return wvm_now()
     else:
         # header timestamps must increment
         return max(
             parent.timestamp + 1,
-            eth_now(),
+            wvm_now(),
         )
 
 
 def fill_header_params_from_parent(
         parent: BlockHeaderAPI,
-        gas_limit: int,
+        lix_limit: int,
         difficulty: int,
         timestamp: int,
         coinbase: Address = ZERO_ADDRESS,
@@ -81,7 +81,7 @@ def fill_header_params_from_parent(
         'parent_hash': parent_hash,
         'coinbase': coinbase,
         'state_root': state_root,
-        'gas_limit': gas_limit,
+        'lix_limit': gas_limit,
         'difficulty': difficulty,
         'block_number': block_number,
         'timestamp': timestamp,
@@ -100,33 +100,33 @@ def fill_header_params_from_parent(
     return header_kwargs
 
 
-def compute_gas_limit_bounds(previous_limit: int) -> Tuple[int, int]:
+def compute_lix_limit_bounds(previous_limit: int) -> Tuple[int, int]:
     """
     Compute the boundaries for the block gas limit based on the parent block.
     """
-    boundary_range = previous_limit // GAS_LIMIT_ADJUSTMENT_FACTOR
+    boundary_range = previous_limit // LIX_LIMIT_ADJUSTMENT_FACTOR
 
     # the boundary range is the exclusive limit, therefore the inclusive bounds are
     # (boundary_range - 1) and (boundary_range + 1) for upper and lower bounds, respectively
-    upper_bound_inclusive = min(GAS_LIMIT_MAXIMUM, previous_limit + boundary_range - 1)
-    lower_bound_inclusive = max(GAS_LIMIT_MINIMUM, previous_limit - boundary_range + 1)
+    upper_bound_inclusive = min(LIX_LIMIT_MAXIMUM, previous_limit + boundary_range - 1)
+    lower_bound_inclusive = max(LIX_LIMIT_MINIMUM, previous_limit - boundary_range + 1)
     return lower_bound_inclusive, upper_bound_inclusive
 
-
-def compute_gas_limit(parent_header: BlockHeaderAPI, genesis_gas_limit: int) -> int:
+#?
+def compute_lix_limit(parent_header: BlockHeaderAPI, genesis_lix_limit: int) -> int:
     """
-    A simple strategy for adjusting the gas limit.
+    A simple strategy for adjusting the lix limit.
     For each block:
-    - decrease by 1/1024th of the gas limit from the previous block
-    - increase by 50% of the total gas used by the previous block
-    If the value is less than the given `genesis_gas_limit`:
-    - increase the gas limit by 1/1024th of the gas limit from the previous block.
-    If the value is less than the GAS_LIMIT_MINIMUM:
-    - use the GAS_LIMIT_MINIMUM as the new gas limit.
+    - decrease by 1/1024th of the lix limit from the previous block
+    - increase by 50% of the total lix used by the previous block
+    If the value is less than the given `genesis_lix_limit`:
+    - increase the lix limit by 1/1024th of the lix limit from the previous block.
+    If the value is less than the LIX_LIMIT_MINIMUM:
+    - use the LIX_LIMIT_MINIMUM as the new gas limit.
     """
-    if genesis_gas_limit < GAS_LIMIT_MINIMUM:
+    if genesis_gas_limit < LIX_LIMIT_MINIMUM:
         raise ValueError(
-            "The `genesis_gas_limit` value must be greater than the "
+            "The `genesis_lix_limit` value must be greater than the "
             f"GAS_LIMIT_MINIMUM.  Got {genesis_gas_limit}.  Must be greater than "
             f"{GAS_LIMIT_MINIMUM}"
         )
@@ -159,4 +159,4 @@ def compute_gas_limit(parent_header: BlockHeaderAPI, genesis_gas_limit: int) -> 
         # - 1 because the decay is an exclusive limit we have to remain inside of
         return parent_header.gas_limit + decay - 1
     else:
-        return 
+        return gas_limit  
