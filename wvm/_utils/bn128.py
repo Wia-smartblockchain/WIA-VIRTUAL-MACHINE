@@ -7,7 +7,7 @@ from py_ecc.optimized_bn128 import (
     FQ2,
 )
 
-from eth_utils import (
+from wvm_utils import (
     ValidationError,
 )
 
