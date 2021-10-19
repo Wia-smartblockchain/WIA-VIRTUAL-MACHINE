@@ -1,10 +1,10 @@
 
-from eth_utils.toolz import (
+from wvm_utils.toolz import (
     assoc,
     groupby,
 )
 
-from eth_utils import (
+from wvm_utils import (
     to_dict,
     to_set,
 )
@@ -12,7 +12,7 @@ from eth_utils import (
 
 from typing import Any, Dict, Tuple, Type, TypeVar, Iterator, List
 
-from eth.abc import ConfigurableAPI
+from wvm.abc import ConfigurableAPI
 
 
 def _is_local_prop(prop: str) -> bool:
