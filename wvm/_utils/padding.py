@@ -1,5 +1,5 @@
 
-from eth_utils.toolz import (
+from wvm_utils.toolz import (
     curry,
 )
 
