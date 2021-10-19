@@ -1,5 +1,5 @@
 
-from wvm.typing import (
+from wvm_typing import (
     Hash32,
 )
 
