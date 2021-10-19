@@ -1,14 +1,14 @@
 
-from eth_typing import (
+from wvm.typing import (
     Hash32,
 )
 
-from eth.abc import (
+from wvm.abc import (
     BlockHeaderAPI,
     ChainDatabaseAPI,
     StateAPI,
 )
-from eth.typing import (
+from wvm.typing import (
     AccountState,
 )
 
