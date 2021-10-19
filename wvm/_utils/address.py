@@ -1,10 +1,10 @@
 
 import rlp
 
-from eth_hash.auto import keccak
-from eth_typing import Address
+from wvm_hash.auto import keccak
+from wvm_typing import Address
 
-from eth._utils.numeric import (
+from wvm._utils.numeric import (
     int_to_bytes32,
 )
 
