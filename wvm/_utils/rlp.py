@@ -6,16 +6,16 @@ from typing import (
     Tuple,
 )
 
-from eth_utils.toolz import (
+from wvm_utils.toolz import (
     curry,
 )
 
-from eth_utils import (
+from wvm_utils import (
     to_tuple,
     ValidationError,
 )
 
-from eth.rlp.blocks import (
+from wvm.rlp.blocks import (
     BaseBlock,
 )
 
