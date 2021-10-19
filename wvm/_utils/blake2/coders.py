@@ -5,7 +5,7 @@ from typing import (
     Tuple,
 )
 
-from eth_utils import (
+from wvm_utils import (
     to_int,
     to_tuple,
     ValidationError,
